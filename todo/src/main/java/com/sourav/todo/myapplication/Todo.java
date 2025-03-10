@@ -2,12 +2,16 @@ package com.sourav.todo.myapplication;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Size;
+
 public class Todo
 {
     private int id;
 
     private String userName;
 
+    @Size( min = 5, message = "Enter at least 5 characters" )
+    // @Size( max = 10, message = "Enter less than 13 characters" )
     private String Description;
 
     private LocalDate Date;

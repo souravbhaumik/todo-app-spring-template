@@ -1,48 +1,61 @@
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
-
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
-        <title>Document</title>
-    </head>
-
-    <body>
+<%@ include file="common/header.jspf" %>
+    <%@ include file="common/navigation.jspf" %>
         <div class="container">
-            Welcome to the application, ${name}.
+            <h1> Welcome to the application, ${name}.</h1>
             <hr>
             <br><br>
             <h1>Your Todos are</h1>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Description</th>
-                        <th>Target Date</th>
-                        <th>Done?</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${todos}" var="todo">
-                        <tr>
-                            <td>${todo.id}</td>
-                            <td>${todo.description}</td>
-                            <td>${todo.date}</td>
-                            <td>${todo.done}</td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+            <c:choose>
+                <c:when test="${not empty todos}">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Description</th>
+                                <th>Target Date</th>
+                                <th>Done?</th>
+                                <th>Delete</th>
+                                <th>Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${todos}" var="todo">
+                                <tr>
+                                    <td>${todo.id}</td>
+                                    <td>${todo.description}</td>
+                                    <td>${todo.date}</td>
+                                    <td>${todo.done}</td>
+                                    <td>
+                                        <a href="delete-todo?id=${todo.id}" class="fa fa-trash">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="update-todo?id=${todo.id}" class="fa fa-edit" />
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <p>You don't have any todos.</p>
+                </c:otherwise>
+            </c:choose>
             <br>
-            <button type="button" class="btn btn-link"><a href="add-todo">Add Todo</a></button>
+            <a href="add-todo">
+                <button type="button" style="color: green;" class="btn btn-outline-success">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span style="font-family: Arial, Helvetica, sans-serif;">Add Todo</span>
+                </button>
+            </a>
             <br>
-            <a href="http://localhost:8090/">Home</a>
+            <a href="http://localhost:8090/">
+                <button type="button" class="btn btn-warning btn-sm mt-3">Home</button>
+            </a>
         </div>
-        <script src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-        <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
-    </body>
+        <script src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js" />
+        <script src="/webjars/jquery/3.6.0/jquery.min.js" />
+        <script src="/webjars/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" />
+        </body>
 
-    </html>
+        </html>
