@@ -25,9 +25,11 @@ public class TodoService
                 LocalDate.now().plusYears( 3 ), false ) );
     }
 
-    public List< Todo > findByuserName( String userName )
+    public List< Todo > findByUserName( String userName )
     {
-        return todos;
+        Predicate< ? super Todo > predicate = todo -> todo.getUserName()
+                .equalsIgnoreCase( userName );
+        return todos.stream().filter( predicate ).toList();
     }
 
     public void addTodo( String userName, String description, LocalDate date,

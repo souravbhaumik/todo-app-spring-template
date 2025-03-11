@@ -2,12 +2,20 @@ package com.sourav.todo.myapplication;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 
+@Entity
 public class Todo
 {
+    @Id
+    @GeneratedValue
     private int id;
 
+    @Column( name = "name" )
     private String userName;
 
     @Size( min = 5, message = "Enter at least 5 characters" )
@@ -17,6 +25,10 @@ public class Todo
     private LocalDate Date;
 
     private boolean done;
+
+    public Todo()
+    {
+    }
 
     public Todo( int id, String userName, String description, LocalDate date,
             boolean done )
